@@ -9,6 +9,12 @@
 #which data to generate? Could also use different scenarios, e.g. with outlier (see scenario 6), etc.
 #FP: preftransformation does not change with the current data
 
+# WILLI                  Zwei Wünsche
+#- Wahl des Wertebereichs wählbar. Dann hätte man bei wechselnden Daten auch noch die gleichen Skalen. 
+#- Wählbare Skalen kann man gut für ein Overlay von mehreren Bildern gebrauchen. FPs sehen so aus, Splines etwas anders etc.
+#- Text: etwas zu den characteristics von FP1 und FP2 aufnehmen. Buch 4.4.1. Das Thema monoton - nicht monoton verdeutlichen.
+
+
 
 library(shiny)
 library(splines)
@@ -277,6 +283,7 @@ ui <- shinyUI(
                       one would have to add some explanations.)"), br(), br(),
                  HTML("+ Maybe add a fourth tap showing an overlay plot of all three methods."), br(), br(),
                  HTML("+ Ideas, comments, suggestions are appreciated."), br(),
+                 HTML("Already received some suggestions from Willi, which will be added."), br(),
                  HTML("Small restriction: A shiny app should be intuitive and easy-to-understand for the user, as there is not much space for long explanations.")
              )
     )                                                        # end tabPanel explanation
