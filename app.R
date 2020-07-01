@@ -4,6 +4,12 @@
 #    based on the shiny apps from GH
 #
 
+#open issues:
+#outcome is not defined, maybe use a realistic example
+#which data to generate? Could also use different scenarios, e.g. with outlier (see scenario 6), etc.
+#FP: preftransformation does not change with the current data
+
+
 library(shiny)
 library(splines)
 
@@ -77,10 +83,10 @@ ui <- shinyUI(
                                  "Coefficient:",
                                  min = -3,
                                  max = 3,
-                                 value = 0, step=0.1),
-                     checkboxInput("fp_data", "Plot data", value=FALSE),
-                     sliderInput("fp_sd_data", "Residual standard error", value=0.2, min=0.01, max=3, step=0.01),
-                     
+                                 value = 0, step=0.1), br(),
+                     sliderInput("fp_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
+                     checkboxInput("fp_data", "how could the outcome y look like", value=FALSE),
+
                      
                      
                      br(), br(),
@@ -154,9 +160,10 @@ ui <- shinyUI(
                                  "Coefficient 3:",
                                  min = -3,
                                  max = 3,
-                                 value = 0, step=0.01),
-                     checkboxInput("ns_data", "Plot data", value=FALSE),
-                     sliderInput("ns_sd_data", "Residual standard error", value=0.2, min=0.01, max=3, step=0.01),
+                                 value = 0, step=0.01), br(),
+                     sliderInput("ns_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
+                     checkboxInput("ns_data", "how could the outcome y look like", value=FALSE),
+                     
                      
                      
                      br(), br(),
@@ -221,10 +228,9 @@ ui <- shinyUI(
                                  "Coefficient 4:",
                                  min = -3,
                                  max = 3,
-                                 value = 0, step=0.01),
-                     checkboxInput("lb_data", "Plot data", value=FALSE),
-                     sliderInput("lb_sd_data", "Residual standard error", value=0.2, min=0.01, max=3, step=0.01),
-                     
+                                 value = 0, step=0.01), br(),
+                     sliderInput("lb_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
+                     checkboxInput("lb_data", "how could the outcome y look like", value=FALSE),
                      
                      br(), br(),
                      strong("An explanatory shiny app"),
@@ -258,16 +264,25 @@ ui <- shinyUI(
              titlePanel("explanatory comments on non-linear modeling"),
              
              mainPanel(
-                 h4("short text explaining the app, add references for more information, etc."), br(),br(),br(),br(),
+                 h4("TO-DO: short text explaining the app, short explanation on the methods, add references for more information, etc."), br(),br(),br(),br(),
                  
-                 HTML("open issues:"), br(),br(),
-                 HTML("outcome is not defined, maybe use a realistic example"), br(),
-                 HTML("which data to generate? Could also use different scenarios, e.g. with outlier (see scenario 6), etc."), br(),
-                 HTML("FP: preftransformation does not change with the current data")
+                 h4("To be discussed:"), br(),
+                 HTML("What is the goal of the app?"), br(),
+                 HTML("Currently, the goal is visualization of of non-linear effects modeled with these three methods. Bot of course, this could be changed."), br(), br(),
+                 HTML("The second part which shows the data based on the selected residual standard error, can also be deleted if it is too complicated to grasp."), br(), br(),
+                 
+                 HTML("Ideas for improvement:"), br(),
+                 HTML("+ Data, prepare upt to 10 scenarios with different X. Maybe use real data from the NHANES data set. E.g. the FP pretransformation should change.
+                       The scenarios can be selected by chossing between number 1 to 10. I would suggest only to use data where non-linear modeling can be used. (Otherwise
+                      one would have to add some explanations.)"), br(), br(),
+                 HTML("+ Maybe add a fourth tap showing an overlay plot of all three methods."), br(), br(),
+                 HTML("+ Ideas, comments, suggestions are appreciated."), br(),
+                 HTML("Small restriction: A shiny app should be intuitive and easy-to-understand for the user, as there is not much space for long explanations.")
              )
     )                                                        # end tabPanel explanation
              
 ))
+
 
 
 # * Define server logic ----
