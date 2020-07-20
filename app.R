@@ -6,6 +6,8 @@
 
 # * Load packages ----
 library(shiny)
+library(shinythemes)
+library(markdown)
 library(splines)
 
 
@@ -39,15 +41,16 @@ fp.scale <- function
 
 
 # * UI user interface ----
-ui <- shinyUI(
+ui <- #shinyUI(
+      fluidPage(theme = shinytheme("cerulean"), withMathJax(),
    
-    navbarPage("Non-linear modeling applying ...", 
+    navbarPage("Visualisation of non-linear modeling applying ...", 
                    
     tabPanel("a) fractional polynomials",
             
              # Application title
-             # ** FP ----
-             titlePanel("Fractional Polynomial (FP) visualisation",  
+             # ** FP panel ----
+             titlePanel("Visualisation of fractional polynomials (FP)",  
 ),
              
              # Sidebar with a slider input for number of bins 
@@ -101,8 +104,10 @@ ui <- shinyUI(
                  
                  
                  mainPanel(
-                     htmlOutput("fp_des_header", style = "font-size: 22px; text-align: center; color: #045dc9"), 
-
+                     br(),
+                     htmlOutput("fp_des_header", style = "font-size: 22px; text-align: center"), 
+                     br(),
+                     
                      h4("Descriptive analysis"),
                      verbatimTextOutput("fp_des"),
                      
@@ -126,10 +131,10 @@ ui <- shinyUI(
              
     ),                                                        
     
-    # ** ns ----
+    # ** ns panel ----
     tabPanel("b) natural (restricted cubic) splines",
              # Application title
-             titlePanel("Natural (restricted cubic) spline visualization"),
+             titlePanel("Visualisation of natural (restricted cubic) splines"),
              
              # Sidebar with a slider input for number of bins 
              sidebarLayout(
@@ -182,7 +187,9 @@ ui <- shinyUI(
                  ),
                  
                  mainPanel(
-                     htmlOutput("ns_des_header", style = "font-size: 22px; text-align: center; color: #045dc9"), 
+                     br(),
+                     htmlOutput("ns_des_header", style = "font-size: 22px; text-align: center"), 
+                     br(),
                      
                      h4("Descriptive analysis"),
                      verbatimTextOutput("ns_des"),
@@ -194,10 +201,10 @@ ui <- shinyUI(
              
     ),                                                        
     
-    # ** lb ----
+    # ** lb panel ----
     tabPanel("c) linear b-splines",
              # Application title
-             titlePanel("Linear B-spline visualization"),
+             titlePanel("Visualisation of linear B-splines"),
              
              # Sidebar with a slider input for number of bins 
              sidebarLayout(
@@ -254,7 +261,9 @@ ui <- shinyUI(
                  ),
                  
                  mainPanel(
-                     htmlOutput("lb_des_header", style = "font-size: 22px; text-align: center; color: #045dc9"), 
+                     br(),
+                     htmlOutput("lb_des_header", style = "font-size: 22px; text-align: center"), 
+                     br(),
                      
                      h4("Descriptive analysis"),
                      verbatimTextOutput("lb_des"),
@@ -272,7 +281,45 @@ ui <- shinyUI(
              titlePanel("explanatory comments on non-linear modeling"),
              
              mainPanel(
-                 h4("Data stem from nhanes_BP from Georg, 1000 randomly selected males or females"), br(),
+                 h4("The linearity assumption"),
+                 helpText("Recall the definition of a linear regression model: $$y = \\beta_0 + \\beta_1 x + \\epsilon$$ 
+                          equivalent to $$E(Y) = \\beta_0 + \\beta_1 x$$.
+                          The linearity assumption assumption states that with each 1-unit difference in $x$, there should be a $$\\beta_1$$ 
+                          difference in $$y$$.
+                          Put mathematically, $$\\partial E(Y) / \\partial x = \\partial (\\beta_0 + \\beta_1 x)/\\partial x = \\beta_1$$."),
+                 strong("But what actually happens if this assumption is violated?"),
+                 helpText("In fact, a violation of the assumption would imply that 
+                          in different regions of $$x$$ the impact of $$x$$ is larger or smaller than on average."),
+                 
+                 br(),
+                 h4("Fractional polynomials"),
+                 
+                 br(),
+                 h4("Natural (restricted cubic) splines:"),
+                 HTML("Restricted cubic splines (also known as natural splines) are cubic transformations of the variable in the interior of 
+                      its range, and are linear at the edges (outside the outermost knots."),
+                 
+                 
+                 br(),
+                 h4("Linear b-splines"),
+                 HTML("B-splines transform the original variable $$x$$ into base functions which are greater than 0 for specific subranges 
+                      of $$X$$ and 0 otherwise. The number of degrees of freedom defines the number of base functions, and the degree defines 
+                      the type of transformation. The subranges are defined by the location of so-called 'knots'. These are usually set 
+                      automatically, but are part of the definition of the spline transformation."),
+                 
+                 
+                 br(),
+                 HTML("A review of splines functions procedures in R can be found in"),
+                 a(href = "https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-019-0666-3/", 
+                   "Perperoglou A, Sauerbrei W, Abrahamowicz M, Schmid M. BMC Med Res Methodol. 2019"),
+                       
+                 
+                 br(),br(),
+                 h5("Data used in this app"),
+                 HTML("Data used to vizualize non-linear modeling using fractional polynomials, natural (restricted cubic) splines, 
+                 and linear b-splines stem from XXX GEORG XXX. For each variable one thousand randomly selected men and women are used."), br(),
+                 
+                 br(),br(),
                  h4("TO-DO: short text explaining the app, short explanation on the methods, add references for more information, etc.")
                  
              )
@@ -349,7 +396,7 @@ server <- function(input, output) {
         x <- out_x_fp()
         hist(x, xlab = out_xname_fp(), main = "", breaks = 15, 
              cex.axis = 1.2, cex.lab = 1.2, las = 1,
-             xaxs = "r") 
+             xaxs = "i") 
         box()
         abline(v=quantile(x, c(0.25,0.5,0.75)), lty=3, col="darkgray")
     })
@@ -423,7 +470,7 @@ server <- function(input, output) {
         if (input$fp_sd_data_plot == TRUE) {
             plot(x*pT$scale -pT$shift, 
                  y_i, 
-                 xlab=out_xname_fp(), ylab = "outcome y", 
+                 xlab = out_xname_fp(), ylab = "outcome y", 
                  cex.axis = 1.2, cex.lab = 1.2, las = 1
 #                 ylim = c(input$fp_sd_data_min, input$fp_sd_data_max)
                  )
@@ -501,7 +548,8 @@ server <- function(input, output) {
     
     output$ns_his <- renderPlot({
         x <- out_x_ns()
-        hist(x, xlab = out_xname_ns(), main = "", cex.axis = 1.2, cex.lab = 1.2, las = 1) 
+        hist(x, xlab = out_xname_ns(), main = "", 
+             cex.axis = 1.2, cex.lab = 1.2, las = 1, xaxs = "i") 
         abline(v = quantile(x, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
         box()
         })
@@ -583,7 +631,8 @@ server <- function(input, output) {
 
     output$lb_his <- renderPlot({
         x <- out_x_lb()
-        hist(x, xlab = out_xname_lb(), main = "", cex.axis = 1.2, cex.lab = 1.2, las = 1) 
+        hist(x, xlab = out_xname_lb(), main = "", 
+             cex.axis = 1.2, cex.lab = 1.2, las = 1, xaxs = "i") 
         abline(v = quantile(x, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
         box()
        })
