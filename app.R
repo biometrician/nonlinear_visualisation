@@ -12,7 +12,7 @@ library(splines)
 
 
 # * Load data ----
-data <- readRDS("D:\\__STRATOS\\_202006 - SHINY APPS\\nonlinear_modeling\\data\\data.rds")
+data <- readRDS("./data/data.rds")
 
 
 # * Helper functions ----
@@ -42,8 +42,18 @@ fp.scale <- function
 
 # * UI user interface ----
 ui <- #shinyUI(
-      fluidPage(theme = shinytheme("cerulean"), withMathJax(),
-   
+      fluidPage(theme = shinytheme("cerulean"),
+                withMathJax(),
+                #so that inline equation in MathJax work
+#                tags$div(HTML("<script type='text/x-mathjax-config' >
+#                  MathJax.Hub.Config({
+#                  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+#                  });
+#                  </script >
+#                  ")),
+
+                    
+                    
     navbarPage("Visualisation of non-linear modeling applying ...", 
                    
     tabPanel("a) fractional polynomials",
@@ -56,7 +66,8 @@ ui <- #shinyUI(
              # Sidebar with a slider input for number of bins 
              sidebarLayout(
                  sidebarPanel(
-                     h5(HTML("Please type in the required information:")),
+                     strong("Obtain first- or second-degree fractional polynomials"),
+                     h5("Please type in the required information:"),
                      br(),
                      
                      sliderInput("fp_x",
@@ -118,7 +129,7 @@ ui <- #shinyUI(
                      verbatimTextOutput("fp_preTrans"), br(),
                      
                      #textOutput("fun"),
-                     h4("Selected FP transformation"),
+                     h4("Selected FP transformations"),
                      verbatimTextOutput("fp_fun"), 
                      
                      plotOutput("fp_plot")
@@ -131,15 +142,91 @@ ui <- #shinyUI(
              
     ),                                                        
     
-    # ** ns panel ----
-    tabPanel("b) natural (restricted cubic) splines",
+  # ** lb panel ----
+  tabPanel("b) linear b-splines",
+         # Application title
+         titlePanel("Visualisation of linear B-splines"),
+         
+         # Sidebar with a slider input for number of bins 
+         sidebarLayout(
+           sidebarPanel(
+             strong("Obtain linear b-splines (degree = 1) with 4 degrees of freedom"),
+             h5("Please type in the required information:"),
+             br(),
+             
+             sliderInput("lb_x",
+                         "Select a variable:",
+                         min = 1,
+                         max = 11,
+                         value = 5, step=1),
+             sliderInput("lb_value1",
+                         "Coefficient 1:",
+                         min = -3,
+                         max = 3,
+                         value = 0, step=0.01),
+             sliderInput("lb_value2",
+                         "Coefficient 2:",
+                         min = -3,
+                         max = 3,
+                         value = 0, step=0.01),
+             sliderInput("lb_value3",
+                         "Coefficient 3:",
+                         min = -3,
+                         max = 3,
+                         value = 0, step=0.01),
+             sliderInput("lb_value4",
+                         "Coefficient 4:",
+                         min = -3,
+                         max = 3,
+                         value = 0, step=0.01), br(),
+             sliderInput("lb_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
+             checkboxInput("lb_sd_data_plot", "how could the outcome y look like", value=FALSE),
+             
+             br(), br(),
+             strong("An explanatory shiny app"),
+             br(),
+             HTML("developed on behalf of"),
+             a(href = "https://stratos-initiative.org/", "STRATOS"),
+             br(), br(),
+             img(src='stratos_logo.png', align = "center", width="60%", height="60%", href = "https://stratos-initiative.org/"),
+             br(), br(),
+             strong("Impressum:"),
+             br(), 
+             HTML("written by Dunkler Daniela & Georg Heinze"), 
+             br(), 
+             HTML("July 2020, version 0.0.2"),
+             br(), br(),
+             HTML("contact daniela.dunkler @ meduniwien.ac.at")
+             
+             
+             
+           ),
+           
+           mainPanel(
+             br(),
+             htmlOutput("lb_des_header", style = "font-size: 22px; text-align: center"), 
+             br(),
+             
+             h4("Descriptive analysis"),
+             verbatimTextOutput("lb_des"),
+             
+             plotOutput("lb_his"),
+             plotOutput("lb_plot")
+           )
+         )
+         
+  ),                 
+
+  # ** ns panel ----
+    tabPanel("c) natural (restricted cubic) splines",
              # Application title
              titlePanel("Visualisation of natural (restricted cubic) splines"),
              
              # Sidebar with a slider input for number of bins 
              sidebarLayout(
                  sidebarPanel(
-                     h5(HTML("Please type in the required information:")),
+                     strong("Obtain natural splines with 3 degrees of freedom"),
+                     h5("Please type in the required information:"),
                      br(),
                      
                      sliderInput("ns_x",
@@ -201,127 +288,13 @@ ui <- #shinyUI(
              
     ),                                                        
     
-    # ** lb panel ----
-    tabPanel("c) linear b-splines",
-             # Application title
-             titlePanel("Visualisation of linear B-splines"),
-             
-             # Sidebar with a slider input for number of bins 
-             sidebarLayout(
-                 sidebarPanel(
-                     h5(HTML("Please type in the required information:")),
-                     br(),
-                     
-                     sliderInput("lb_x",
-                                 "Select a variable:",
-                                 min = 1,
-                                 max = 11,
-                                 value = 5, step=1),
-                     sliderInput("lb_value1",
-                                 "Coefficient 1:",
-                                 min = -3,
-                                 max = 3,
-                                 value = 0, step=0.01),
-                     sliderInput("lb_value2",
-                                 "Coefficient 2:",
-                                 min = -3,
-                                 max = 3,
-                                 value = 0, step=0.01),
-                     sliderInput("lb_value3",
-                                 "Coefficient 3:",
-                                 min = -3,
-                                 max = 3,
-                                 value = 0, step=0.01),
-                     sliderInput("lb_value4",
-                                 "Coefficient 4:",
-                                 min = -3,
-                                 max = 3,
-                                 value = 0, step=0.01), br(),
-                     sliderInput("lb_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
-                     checkboxInput("lb_sd_data_plot", "how could the outcome y look like", value=FALSE),
-                     
-                     br(), br(),
-                     strong("An explanatory shiny app"),
-                     br(),
-                     HTML("developed on behalf of"),
-                     a(href = "https://stratos-initiative.org/", "STRATOS"),
-                     br(), br(),
-                     img(src='stratos_logo.png', align = "center", width="60%", height="60%", href = "https://stratos-initiative.org/"),
-                     br(), br(),
-                     strong("Impressum:"),
-                     br(), 
-                     HTML("written by Dunkler Daniela & Georg Heinze"), 
-                     br(), 
-                     HTML("July 2020, version 0.0.2"),
-                     br(), br(),
-                     HTML("contact daniela.dunkler @ meduniwien.ac.at")
-                     
-                     
-                     
-                 ),
-                 
-                 mainPanel(
-                     br(),
-                     htmlOutput("lb_des_header", style = "font-size: 22px; text-align: center"), 
-                     br(),
-                     
-                     h4("Descriptive analysis"),
-                     verbatimTextOutput("lb_des"),
-                     
-                     plotOutput("lb_his"),
-                     plotOutput("lb_plot")
-                 )
-             )
-             
-    ),                 
-
     # ** comments panel ----
     tabPanel("explanatory comments",
              # Application title
-             titlePanel("explanatory comments on non-linear modeling"),
+             #titlePanel("Visualisation of non-linear modeling"),
              
              mainPanel(
-                 h4("The linearity assumption"),
-                 helpText("Recall the definition of a linear regression model: $$y = \\beta_0 + \\beta_1 x + \\epsilon$$ 
-                          equivalent to $$E(Y) = \\beta_0 + \\beta_1 x$$.
-                          The linearity assumption assumption states that with each 1-unit difference in $x$, there should be a $$\\beta_1$$ 
-                          difference in $$y$$.
-                          Put mathematically, $$\\partial E(Y) / \\partial x = \\partial (\\beta_0 + \\beta_1 x)/\\partial x = \\beta_1$$."),
-                 strong("But what actually happens if this assumption is violated?"),
-                 helpText("In fact, a violation of the assumption would imply that 
-                          in different regions of $$x$$ the impact of $$x$$ is larger or smaller than on average."),
-                 
-                 br(),
-                 h4("Fractional polynomials"),
-                 
-                 br(),
-                 h4("Natural (restricted cubic) splines:"),
-                 HTML("Restricted cubic splines (also known as natural splines) are cubic transformations of the variable in the interior of 
-                      its range, and are linear at the edges (outside the outermost knots."),
-                 
-                 
-                 br(),
-                 h4("Linear b-splines"),
-                 HTML("B-splines transform the original variable $$x$$ into base functions which are greater than 0 for specific subranges 
-                      of $$X$$ and 0 otherwise. The number of degrees of freedom defines the number of base functions, and the degree defines 
-                      the type of transformation. The subranges are defined by the location of so-called 'knots'. These are usually set 
-                      automatically, but are part of the definition of the spline transformation."),
-                 
-                 
-                 br(),
-                 HTML("A review of splines functions procedures in R can be found in"),
-                 a(href = "https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-019-0666-3/", 
-                   "Perperoglou A, Sauerbrei W, Abrahamowicz M, Schmid M. BMC Med Res Methodol. 2019"),
-                       
-                 
-                 br(),br(),
-                 h5("Data used in this app"),
-                 HTML("Data used to vizualize non-linear modeling using fractional polynomials, natural (restricted cubic) splines, 
-                 and linear b-splines stem from XXX GEORG XXX. For each variable one thousand randomly selected men and women are used."), br(),
-                 
-                 br(),br(),
-                 h4("TO-DO: short text explaining the app, short explanation on the methods, add references for more information, etc.")
-                 
+              includeMarkdown("explanation.md")
              )
     )                                                        # end tabPanel explanation
              
@@ -486,91 +459,7 @@ server <- function(input, output) {
         })
    
     
-    # ** ns ----
-    out_x_ns <- reactive({
-        switch(input$ns_x, 
-               data[,1],
-               data[,2],
-               data[,3],
-               data[,4],
-               data[,5],
-               data[,6],
-               data[,7],
-               data[,8],
-               data[,9],
-               data[,10],
-               data[,11])
-    })
-    
-    out_xname_ns <- reactive({
-        switch(input$ns_x, 
-               "weight (kg)", 
-               "bmi (kg/m**2)", 
-               "waist circumference (cm)",
-               "triglyceride (mmol/L)",
-               "triglyceride (mmol/L)",
-               "HDL cholesterol (mmol/L)",
-               "HDL cholesterol (mmol/L)",
-               "systolic blood pressure (mm Hg)",
-               "systolic blood pressure (mm Hg)",
-               "diastolic blood pressure (mm Hg)",
-               "age")
-    })
-    
-    
-    out_xgender_ns <- reactive({
-        switch(input$ns_x, 
-               "women", 
-               "men", 
-               "women",
-               "men",
-               "women",
-               "men",
-               "women",
-               "men",
-               "women",
-               "men",
-               "women")
-    })
-    
-    
-    
-    output$ns_des_header <- renderText({
-        paste(out_xname_ns(), "measured in 1000 ", out_xgender_ns())
-    })
-    
-    
-
-    output$ns_des <- renderPrint({
-        summary(out_x_ns())
-        })
-    
-    
-    output$ns_his <- renderPlot({
-        x <- out_x_ns()
-        hist(x, xlab = out_xname_ns(), main = "", 
-             cex.axis = 1.2, cex.lab = 1.2, las = 1, xaxs = "i") 
-        abline(v = quantile(x, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
-        box()
-        })
-    
-
-    output$ns_plot <- renderPlot({
-        # draw the natural spline    
-        x <- sort(out_x_ns())
-        natspl <- ns(x,  df = 3)
-        y <- natspl %*% c(input$ns_value1, input$ns_value2, input$ns_value3)
-        
-        y_i <- y + rnorm(length(y), 0, input$ns_sd_data)
-        
-        if(input$ns_sd_data_plot == TRUE) {
-            plot(x, y_i, cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y")
-            lines(x, y)
-        } else plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y")
-        abline(v=quantile(x, c(0.25, 0.5, 0.75)), lty=3, col="darkgray")
-       })
-    
-    
+ 
     # ** linB ----
     out_x_lb <- reactive({
         switch(input$lb_x, 
@@ -650,6 +539,93 @@ server <- function(input, output) {
         } else plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_lb(), ylab = "outcome y")
         abline(v = quantile(x, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
         })
+    
+    
+    
+    
+    # ** ns ----
+    out_x_ns <- reactive({
+      switch(input$ns_x, 
+             data[,1],
+             data[,2],
+             data[,3],
+             data[,4],
+             data[,5],
+             data[,6],
+             data[,7],
+             data[,8],
+             data[,9],
+             data[,10],
+             data[,11])
+    })
+    
+    out_xname_ns <- reactive({
+      switch(input$ns_x, 
+             "weight (kg)", 
+             "bmi (kg/m**2)", 
+             "waist circumference (cm)",
+             "triglyceride (mmol/L)",
+             "triglyceride (mmol/L)",
+             "HDL cholesterol (mmol/L)",
+             "HDL cholesterol (mmol/L)",
+             "systolic blood pressure (mm Hg)",
+             "systolic blood pressure (mm Hg)",
+             "diastolic blood pressure (mm Hg)",
+             "age")
+    })
+    
+    
+    out_xgender_ns <- reactive({
+      switch(input$ns_x, 
+             "women", 
+             "men", 
+             "women",
+             "men",
+             "women",
+             "men",
+             "women",
+             "men",
+             "women",
+             "men",
+             "women")
+    })
+    
+    
+    
+    output$ns_des_header <- renderText({
+      paste(out_xname_ns(), "measured in 1000 ", out_xgender_ns())
+    })
+    
+    
+    
+    output$ns_des <- renderPrint({
+      summary(out_x_ns())
+    })
+    
+    
+    output$ns_his <- renderPlot({
+      x <- out_x_ns()
+      hist(x, xlab = out_xname_ns(), main = "", 
+           cex.axis = 1.2, cex.lab = 1.2, las = 1, xaxs = "i") 
+      abline(v = quantile(x, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
+      box()
+    })
+    
+    
+    output$ns_plot <- renderPlot({
+      # draw the natural spline    
+      x <- sort(out_x_ns())
+      natspl <- ns(x,  df = 3)
+      y <- natspl %*% c(input$ns_value1, input$ns_value2, input$ns_value3)
+      
+      y_i <- y + rnorm(length(y), 0, input$ns_sd_data)
+      
+      if(input$ns_sd_data_plot == TRUE) {
+        plot(x, y_i, cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y")
+        lines(x, y)
+      } else plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y")
+      abline(v=quantile(x, c(0.25, 0.5, 0.75)), lty=3, col="darkgray")
+    })
 }
 
 
