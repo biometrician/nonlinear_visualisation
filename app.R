@@ -44,16 +44,7 @@ fp.scale <- function
 ui <- #shinyUI(
       fluidPage(theme = shinytheme("cerulean"),
                 withMathJax(),
-                #so that inline equation in MathJax work
-#                tags$div(HTML("<script type='text/x-mathjax-config' >
-#                  MathJax.Hub.Config({
-#                  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-#                  });
-#                  </script >
-#                  ")),
 
-                    
-                    
     navbarPage("Visualisation of non-linear modeling applying ...", 
                    
     tabPanel("a) fractional polynomials",
@@ -294,7 +285,7 @@ ui <- #shinyUI(
              #titlePanel("Visualisation of non-linear modeling"),
              
              mainPanel(
-              includeMarkdown("explanation.md")
+              includeMarkdown("explanation.html")
              )
     )                                                        # end tabPanel explanation
              

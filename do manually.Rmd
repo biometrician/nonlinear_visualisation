@@ -1,0 +1,13 @@
+---
+title: "DO manually"
+author: "DD"
+date: "27 7 2020"
+output: html_document
+---
+
+md or rmd files included in the shiny app using `includeMarkdown` is not executable. One can include the html file, but then most of the features of the cerulean theme are not working any longer.
+
+As a workaround see [https://community.rstudio.com/t/shiny-more-rmarkdown-how-handle-both-templates/62857](<https://community.rstudio.com/t/shiny-more-rmarkdown-how-handle-both-templates/62857>).
+Simply empty the header in the html file manually. 
+
+One caveat I have not solved yet. In the first row of the shiny app one word is printed. How do I get rid of that?
