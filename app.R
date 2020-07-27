@@ -10,6 +10,9 @@ library(shinythemes)
 library(markdown)
 library(splines)
 
+# * version ----
+version <- "Aug 2020, version 0.0.2"
+
 
 # * Load data ----
 data <- readRDS("./data/data.rds")
@@ -44,23 +47,14 @@ fp.scale <- function
 ui <- #shinyUI(
       fluidPage(theme = shinytheme("cerulean"),
                 withMathJax(),
-                #so that inline equation in MathJax work
-#                tags$div(HTML("<script type='text/x-mathjax-config' >
-#                  MathJax.Hub.Config({
-#                  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-#                  });
-#                  </script >
-#                  ")),
 
-                    
-                    
     navbarPage("Visualisation of non-linear modeling applying ...", 
                    
     tabPanel("a) fractional polynomials",
             
              # Application title
              # ** FP panel ----
-             titlePanel("Visualisation of fractional polynomials (FP)",  
+             titlePanel("Fractional polynomials (FP)",  
 ),
              
              # Sidebar with a slider input for number of bins 
@@ -91,8 +85,6 @@ ui <- #shinyUI(
                                  value = 0, step=0.1), br(),
                      sliderInput("fp_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
                      checkboxInput("fp_sd_data_plot", "how could the outcome y look like", value=FALSE),
-#                     numericInput("fp_sd_data_min", "Min. value of plotted y", value = NA),
-#                     numericInput("fp_sd_data_max", "Max. value of plotted y", value = NA),
 
                      
                      
@@ -108,7 +100,7 @@ ui <- #shinyUI(
                      br(), 
                      HTML("written by Dunkler Daniela & Georg Heinze"), 
                      br(), 
-                     HTML("July 2020, version 0.0.2"),
+                     HTML(version),
                      br(), br(),
                      HTML("contact daniela.dunkler @ meduniwien.ac.at")
                  ),
@@ -145,7 +137,7 @@ ui <- #shinyUI(
   # ** lb panel ----
   tabPanel("b) linear b-splines",
          # Application title
-         titlePanel("Visualisation of linear B-splines"),
+         titlePanel("Linear B-splines"),
          
          # Sidebar with a slider input for number of bins 
          sidebarLayout(
@@ -194,7 +186,7 @@ ui <- #shinyUI(
              br(), 
              HTML("written by Dunkler Daniela & Georg Heinze"), 
              br(), 
-             HTML("July 2020, version 0.0.2"),
+             HTML(version),
              br(), br(),
              HTML("contact daniela.dunkler @ meduniwien.ac.at")
              
@@ -220,7 +212,7 @@ ui <- #shinyUI(
   # ** ns panel ----
     tabPanel("c) natural (restricted cubic) splines",
              # Application title
-             titlePanel("Visualisation of natural (restricted cubic) splines"),
+             titlePanel("Natural (restricted cubic) splines"),
              
              # Sidebar with a slider input for number of bins 
              sidebarLayout(
@@ -266,7 +258,7 @@ ui <- #shinyUI(
                      br(), 
                      HTML("written by Dunkler Daniela & Georg Heinze"), 
                      br(), 
-                     HTML("July 2020, version 0.0.2"),
+                     HTML(version),
                      br(), br(),
                      HTML("contact daniela.dunkler @ meduniwien.ac.at")
                      
@@ -290,11 +282,9 @@ ui <- #shinyUI(
     
     # ** comments panel ----
     tabPanel("explanatory comments",
-             # Application title
-             #titlePanel("Visualisation of non-linear modeling"),
              
              mainPanel(
-              includeMarkdown("explanation.md")
+              includeHTML("explanation.html")
              )
     )                                                        # end tabPanel explanation
              
