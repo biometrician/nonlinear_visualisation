@@ -1,6 +1,6 @@
 #
 #    Shiny app to visualize non-linear modeling
-#    2020-05-26, DD
+#    started 2020-05-26, DD
 #    based on the shiny apps from GH
 #
 
@@ -11,7 +11,7 @@ library(markdown)
 library(splines)
 
 # * version ----
-version <- "Aug 2020, version 0.0.2"
+version <- "Aug 2020, version 0.0.3"
 
 
 # * Load data ----

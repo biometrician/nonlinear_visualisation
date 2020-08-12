@@ -8,7 +8,7 @@ date: '2020-08-11'
 * Prepare the explanation.html following these steps:
   + knit to HTML
   
-  + comment out "!DOCTYPE html"
+  + comment out or delete "!DOCTYPE html"
   
   + delete the complete head and add the following text
       <head>
@@ -42,8 +42,6 @@ date: '2020-08-11'
     - app.R
     - explanation.html
     - data/data.rds
-    - www/age_bmi_1.png
-    - www/age_bmi_2.png
     - www/stratos_logo.png
  
  
