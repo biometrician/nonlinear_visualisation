@@ -21,20 +21,6 @@ library(ggpubr)
 
 <br>
 
-## Goal of this shiny application
-For eleven different explanatory variables, the user can visualise non-linear effects applying **fractional polynomials**, **natural (restricted cubic) splines**, or **linear B-splines**. For each method, the relevant parameters can be changed and the resulting non-linear effect can be graphically assessed. 
-
-Users can visualise first- or second-degree fractional polynomials, linear B-splines with 4 degrees of freedom and natural splines with 3 degrees of freedom. Additionally, if one assumes a specific residual standard error, one can visualise how the outcome $y$ could look like. *Are these data realistic in a biomedical setting?*
-
-<br>
-               
-## Data used in this app
-The data used to visualise non-linear modelling stem from the [National Health and Nutrition Helath Survey (NHANES)](<https://www.cdc.gov/nchs/nhanes/index.htm>) from the waves 2007-2008 and 2009-2010. For each variable used in this application one thousand men and women were randomly selected.
-               
-***
-
-<br>
-
 ## **Modelling non-linear effects**
 
 <br>

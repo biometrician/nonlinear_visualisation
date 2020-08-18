@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+      
+      <meta charset="utf-8" />
+      <meta name="generator" content="pandoc" />
+      <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+      
+      <meta name="author" content="Daniela Dunkler" />
+      
+      
+      <title>Visualisation of non-linear modeling</title>
+      <style>
+      img {
+        max-width:100%;
+      }
+      </style>
+      
+      </head>
+<body>
+
+
+<div class="container-fluid main-container">
+
+<div id="visualisation-of-non-linear-modelling" class="section level1">
+<h1><strong>Visualisation of non-linear modelling</strong></h1>
+<center>
+<div class="gray">
+<em>by Daniela Dunkler and Georg Heinze</em>
+</div>
+</center>
+<p><br></p>
+<div id="goal-of-this-shiny-app" class="section level2">
+<h2>Goal of this shiny app</h2>
+<p>The goal if this app is to <strong>visualize the possible different functional forms</strong> which can be modelled with <strong>fractional polynomials</strong>, <strong>natural (restricted cubic) splines</strong>, or <strong>linear B-splines</strong>. For eleven different explanatory variables, you can visualise non-linear effects applying these popular methods of non-linear modeling. You can visualise first- or second-degree fractional polynomials, linear B-splines with up to 4 degrees of freedom and natural splines with up to 3 degrees of freedom.</p>
+<p>For each method, the relevant parameters can be changed and the resulting non-linear effect can be directly graphically assessed. Usually regression coefficients are estimated by the model, but in this app you can manually set the regression coefficients. In this way, you can explore how these coefficients effect the functional form of the association between the explanatory variable <span class="math inline">\(x\)</span>, e.g. age, and an outcome of interest <span class="math inline">\(y\)</span>, e.g. BMI.</p>
+<p>Additionally, if one assumes a specific residual standard error, one can visualise how the outcome <span class="math inline">\(y\)</span> could look like. <em>Are these data realistic in a biomedical setting?</em></p>
+<p>A short introduction of non-linear effects and the three methods can be found in the tab <em>explanatory comments</em>.</p>
+<p>If you are interested in <strong>modelling of non-linear effects</strong>, we refer to our second shiny app (<em>under construction</em>).</p>
+<p><br></p>
+</div>
+<div id="learning-objectives" class="section level2">
+<h2>Learning objectives</h2>
+<ul>
+<li>Show which functional forms of the association between the explanatory variable <span class="math inline">\(x\)</span> and the outcome <span class="math inline">\(y\)</span> can be modelled with these methods.</li>
+<li>Assess if the assumption of linearity (i.e. linear association between the explanatory variable <span class="math inline">\(x\)</span> and the outcome <span class="math inline">\(y\)</span>), is a good approximation of the true underlying association.</li>
+<li>Show that complex functional forms may not be realistic for real biomedical data.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="data-used-in-this-app" class="section level2">
+<h2>Data used in this app</h2>
+<p>The data used to visualise non-linear modelling stem from the <a href="https://www.cdc.gov/nchs/nhanes/index.htm">National Health and Nutrition Health Survey (NHANES)</a> from the waves 2007-2008 and 2009-2010. Variables in this app include various medical measurements like weight (in kg), waist circumference (in cm), triglyceride ( in mmol/L), high-density lipoprotein (HDL) cholesterol ( in mmol/L), systolic blood pressure (in mm Hg), diastolic blood pressure (in mm Hg), or age. For each variable either one thousand men or one thousand women were randomly selected.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -40,6 +40,7 @@ date: '2020-08-11'
 * upload to shinyapps.io via clicking on republish
   + upload the following files
     - app.R
+    - about.html
     - explanation.html
     - data/data.rds
     - www/stratos_logo.png
