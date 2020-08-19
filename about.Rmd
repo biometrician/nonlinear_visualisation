@@ -26,7 +26,7 @@ If you are interested in **modelling of non-linear effects**, we refer to our se
 ## Learning objectives
 * Show which functional forms of the association between the explanatory variable $x$ and the outcome $y$ can be modelled with these methods.
 * Assess if the assumption of linearity (i.e. linear association between the explanatory variable $x$ and the outcome $y$), is a good approximation of the true underlying association.
-* Show that complex functional forms may not be realistic for real biomedical data.
+* Show that very complex functional forms may not be realistic for real biomedical data.
 
 <br>
                

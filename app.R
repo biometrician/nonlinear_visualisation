@@ -43,6 +43,8 @@ fp.scale <- function
 }
 
 
+
+
 # * UI user interface ----
 ui <- fluidPage(theme = shinytheme("cerulean"),
             withMathJax(),
@@ -72,11 +74,21 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     h5("Please type in the required information:"),
                                     br(),
                                     
-                                    sliderInput("fp_x",
+                                    selectInput("fp_x",
                                                 "Select a variable:",
-                                                min = 1,
-                                                max = 11,
-                                                value = 5, step=1),
+                                                c("men, weight (kg)" = "1", 
+                                                  "men, bmi (kg/m**2)" = "2", 
+                                                  "men, triglyceride (mmol/L)" = "3",
+                                                  "men, HDL cholesterol (mmol/L)" = "4",
+                                                  "men, systolic blood pressure (mm Hg)" = "5",
+                                                  "men, diastolic blood pressure (mm Hg)" = "6",
+                                                  "women, waist circumference (cm)" = "7",
+                                                  "women, triglyceride (mmol/L)" = "8",
+                                                  "women, HDL cholesterol (mmol/L)" = "9",
+                                                  "women, systolic blood pressure (mm Hg)" = "10",
+                                                  "women, age" = "11"),
+                                                "8"), br(),
+                                    
                                     radioButtons("fp_fp1", "First FP power", choices = c(-2, -1, -0.5, 0, 0.5, 1, 2, 3), selected = 1,
                                                  inline = FALSE, width = NULL, choiceNames = NULL, choiceValues = NULL),
                                     sliderInput("fp_value1",
@@ -91,8 +103,13 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                 min = -3,
                                                 max = 3,
                                                 value = 0, step=0.1), br(),
-                                    sliderInput("fp_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
-                                    checkboxInput("fp_sd_data_plot", "how could the outcome y look like", value=FALSE),
+                                    
+                                    checkboxInput("fp_linear", HTML("<b>Add a linear effect</b>"), value = FALSE),
+                                    
+                                    
+                                    checkboxInput("fp_sd_data_plot", HTML("<b>How could the outcome y look like</b>"), value = FALSE),
+                                    sliderInput("fp_sd_data", "assuming the residual standard error is", value = 0.2, min = 0.01, max = 3, step = 0.01),
+                                    
                                     
                                     
                                     
@@ -128,8 +145,6 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     h4("Pretransformation"),
                                     verbatimTextOutput("fp_preTrans"), br(),
                                     
-                                    #textOutput("fun"),
-                                    h4("Selected FP transformations"),
                                     verbatimTextOutput("fp_fun"), 
                                     
                                     plotOutput("fp_plot")
@@ -154,11 +169,21 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     h5("Please type in the required information:"),
                                     br(),
                                     
-                                    sliderInput("lb_x",
+                                    selectInput("lb_x",
                                                 "Select a variable:",
-                                                min = 1,
-                                                max = 11,
-                                                value = 5, step=1),
+                                                c("men, weight (kg)" = "1", 
+                                                  "men, bmi (kg/m**2)" = "2", 
+                                                  "men, triglyceride (mmol/L)" = "3",
+                                                  "men, HDL cholesterol (mmol/L)" = "4",
+                                                  "men, systolic blood pressure (mm Hg)" = "5",
+                                                  "men, diastolic blood pressure (mm Hg)" = "6",
+                                                  "women, waist circumference (cm)" = "7",
+                                                  "women, triglyceride (mmol/L)" = "8",
+                                                  "women, HDL cholesterol (mmol/L)" = "9",
+                                                  "women, systolic blood pressure (mm Hg)" = "10",
+                                                  "women, age" = "11"),
+                                                "8"), br(),
+                                    
                                     sliderInput("lb_value1",
                                                 "Coefficient 1:",
                                                 min = -3,
@@ -179,8 +204,11 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                 min = -3,
                                                 max = 3,
                                                 value = 0, step=0.01), br(),
-                                    sliderInput("lb_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
-                                    checkboxInput("lb_sd_data_plot", "how could the outcome y look like", value=FALSE),
+                                    
+                                    checkboxInput("lb_linear", HTML("<b>Add a linear effect</b>"), value = FALSE),
+                                    
+                                    checkboxInput("lb_sd_data_plot", HTML("<b>How could the outcome y look like</b>"), value = FALSE),
+                                    sliderInput("lb_sd_data", "assuming the residual standard error is", value = 0.2, min = 0.01, max = 3, step = 0.01),
                                     
                                     br(), br(),
                                     strong("An explanatory shiny app"),
@@ -229,11 +257,21 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     h5("Please type in the required information:"),
                                     br(),
                                     
-                                    sliderInput("ns_x",
+                                    selectInput("ns_x",
                                                 "Select a variable:",
-                                                min = 1,
-                                                max = 11,
-                                                value = 5, step=1),
+                                                c("men, weight (kg)" = "1", 
+                                                  "men, bmi (kg/m**2)" = "2", 
+                                                  "men, triglyceride (mmol/L)" = "3",
+                                                  "men, HDL cholesterol (mmol/L)" = "4",
+                                                  "men, systolic blood pressure (mm Hg)" = "5",
+                                                  "men, diastolic blood pressure (mm Hg)" = "6",
+                                                  "women, waist circumference (cm)" = "7",
+                                                  "women, triglyceride (mmol/L)" = "8",
+                                                  "women, HDL cholesterol (mmol/L)" = "9",
+                                                  "women, systolic blood pressure (mm Hg)" = "10",
+                                                  "women, age" = "11"),
+                                                "8"), br(),
+                                    
                                     sliderInput("ns_value1",
                                                 "Coefficient 1:",
                                                 min = -3,
@@ -249,8 +287,11 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                 min = -3,
                                                 max = 3,
                                                 value = 0, step=0.01), br(),
-                                    sliderInput("ns_sd_data", "Assuming the residual standard error is", value=0.2, min=0.01, max=3, step=0.01),
-                                    checkboxInput("ns_sd_data_plot", "how could the outcome y look like", value=FALSE),
+                                    
+                                    checkboxInput("ns_linear", HTML("<b>Add a linear effect</b>"), value = FALSE),
+                                    
+                                    checkboxInput("ns_sd_data_plot", HTML("<b>How could the outcome y look like</b>"), value = FALSE),
+                                    sliderInput("ns_sd_data", "assuming the residual standard error is", value = 0.2, min = 0.01, max = 3, step = 0.01),
                                     
                                     
                                     
@@ -307,7 +348,7 @@ server <- function(input, output) {
   
   # ** FP ----
   out_x_fp <- reactive({
-    switch(input$fp_x, 
+    switch(as.numeric(input$fp_x), 
            data[,1],
            data[,2],
            data[,3],
@@ -322,47 +363,52 @@ server <- function(input, output) {
   })
   
   out_xname_fp <- reactive({
-    switch(input$fp_x, 
+    switch(as.numeric(input$fp_x), 
            "weight (kg)", 
            "bmi (kg/m**2)", 
-           "waist circumference (cm)",
-           "triglyceride (mmol/L)",
            "triglyceride (mmol/L)",
            "HDL cholesterol (mmol/L)",
-           "HDL cholesterol (mmol/L)",
-           "systolic blood pressure (mm Hg)",
            "systolic blood pressure (mm Hg)",
            "diastolic blood pressure (mm Hg)",
+           "waist circumference (cm)",
+           "triglyceride (mmol/L)",
+           "HDL cholesterol (mmol/L)",
+           "systolic blood pressure (mm Hg)",
+           "age")
+  })
+
+  out_xname_code_fp <- reactive({
+    switch(as.numeric(input$fp_x), 
+           "weight", 
+           "bmi", 
+           "triglyceride",
+           "HDL_cholesterol",
+           "systolic_blood_pressure",
+           "diastolic_blood_pressure",
+           "waist_circumference",
+           "triglyceride",
+           "HDL_cholesterol",
+           "systolic_blood_pressure",
            "age")
   })
   
   
   out_xgender_fp <- reactive({
-    switch(input$fp_x, 
-           "women", 
-           "men", 
-           "women",
-           "men",
-           "women",
-           "men",
-           "women",
-           "men",
-           "women",
-           "men",
-           "women")
+    switch(as.numeric(input$fp_x), 
+          "men", "men", "men", "men", "men", "men", "women", "women", "women", "women", "women")
   })
   
   
-  
+
   output$fp_des_header <- renderText({
     paste(out_xname_fp(), "measured in 1000 ", out_xgender_fp())
   })
-  
-  
+    
+
   output$fp_des <- renderPrint({
     summary(out_x_fp())
   })
-  
+
   
   output$fp_his <- renderPlot({
     x <- out_x_fp()
@@ -377,7 +423,7 @@ server <- function(input, output) {
   output$fp_preTrans <- renderPrint({
     pT <- fp.scale(out_x_fp())
     
-    preTrans <- paste("x = ", out_xname_fp())
+    preTrans <- paste("x = ", out_xname_code_fp())
     if (pT$shift==1) preTrans <- paste(preTrans, " + ", pT$shift, ")")
     if (pT$scale!=1) preTrans <- paste(preTrans, "/", pT$scale)
     
@@ -427,8 +473,8 @@ server <- function(input, output) {
     if (input$fp_fp2 != "no second FP")   {
       pow2 <- as.numeric(input$fp_fp2)
       
-      fp2 <- x**pow2
-      if(pow2 == 0) fp2<-log(x)
+      fp2 <- x ** pow2
+      if(pow2 == 0) fp2 <- log(x)
       
       if(pow1 == pow2) fp2 <- log(x) * fp2
       
@@ -440,28 +486,44 @@ server <- function(input, output) {
     y_i <- fp + rnorm(length(fp), 0, input$fp_sd_data)
     
     if (input$fp_sd_data_plot == TRUE) {
-      plot(x*pT$scale -pT$shift, 
+      x_back <- x * pT$scale - pT$shift
+      plot(x_back, 
            y_i, 
            xlab = out_xname_fp(), ylab = "outcome y", 
-           cex.axis = 1.2, cex.lab = 1.2, las = 1
-           #                 ylim = c(input$fp_sd_data_min, input$fp_sd_data_max)
-      )
-      lines(x*pT$scale -pT$shift, fp)
-    } else plot(x*pT$scale -pT$shift, 
+           cex.axis = 1.2, cex.lab = 1.2, las = 1)
+      lines(x_back, fp, lwd = 4)
+      
+      if (input$fp_linear == TRUE) {
+        # small trick for educational purposes
+        if (all(input$fp_value1 == 0, input$fp_value2 == 0)) {
+          abline(h = 0, col = "red", lwd = 2)
+        } else if (all(input$fp_fp1 == 1, input$fp_value2 == 0)) {
+          lines(x_back, fp, col = "red", lwd = 2)
+        } else if (all(input$fp_fp1 == 1, input$fp_value2 == 0)) {
+        lines(x_back, fp, col = "red", lwd = 2)
+        } else if (all(input$fp_fp1 == 1, input$fp_fp2 == "no second FP")) {
+          lines(x_back, fp, col = "red", lwd = 2)
+        } else abline(reg = lm(y_i ~ x_back), col = "red", lwd = 2)
+      }
+      
+    } else if (input$fp_sd_data_plot == FALSE) {
+      plot(x*pT$scale -pT$shift, 
                 fp, 
-                type="l", 
+                type = "l", 
                 xlab=out_xname_fp(), ylab = "outcome y", 
-                cex.axis = 1.2, cex.lab = 1.2, las = 1 
-                #                    ylim = c(input$fp_sd_data_min, input$fp_sd_data_max)
-    )
+                cex.axis = 1.2, cex.lab = 1.2, las = 1, lwd = 4)
+      
+      if (input$fp_linear == TRUE) {
+        abline(reg = lm(fp ~ x_org), col = "red", lwd = 2)
+      }
+    }
     abline(v = quantile(x_org, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
   })
   
   
-  
-  # ** linB ----
+   # ** linB ----
   out_x_lb <- reactive({
-    switch(input$lb_x, 
+    switch(as.numeric(input$lb_x), 
            data[,1],
            data[,2],
            data[,3],
@@ -476,35 +538,25 @@ server <- function(input, output) {
   })
   
   out_xname_lb <- reactive({
-    switch(input$lb_x, 
+    switch(as.numeric(input$lb_x), 
            "weight (kg)", 
            "bmi (kg/m**2)", 
-           "waist circumference (cm)",
-           "triglyceride (mmol/L)",
            "triglyceride (mmol/L)",
            "HDL cholesterol (mmol/L)",
-           "HDL cholesterol (mmol/L)",
-           "systolic blood pressure (mm Hg)",
            "systolic blood pressure (mm Hg)",
            "diastolic blood pressure (mm Hg)",
+           "waist circumference (cm)",
+           "triglyceride (mmol/L)",
+           "HDL cholesterol (mmol/L)",
+           "systolic blood pressure (mm Hg)",
            "age")
   })
   
-  
   out_xgender_lb <- reactive({
-    switch(input$lb_x, 
-           "women", 
-           "men", 
-           "women",
-           "men",
-           "women",
-           "men",
-           "women",
-           "men",
-           "women",
-           "men",
-           "women")
+    switch(as.numeric(input$lb_x), 
+           "men", "men", "men", "men", "men", "men", "women", "women", "women", "women", "women")
   })
+  
   
   
   output$lb_des_header <- renderText({
@@ -530,12 +582,26 @@ server <- function(input, output) {
     x <- sort(out_x_lb())
     linb <- bs(x, degree = 1, df = 4)
     y <- linb %*% c(input$lb_value1, input$lb_value2, input$lb_value3, input$lb_value4)
+    cf <- lm(y ~ x)$coefficients
+  
     y_i <- y + rnorm(length(y), 0, input$lb_sd_data)
+    cf_i <- lm(y_i ~ x)$coefficients
     
-    if(input$lb_sd_data_plot == TRUE) {
+    if (input$lb_sd_data_plot == TRUE) {
       plot(x, y_i, cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_lb(), ylab = "outcome y")
-      lines(x, y)
-    } else plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_lb(), ylab = "outcome y")
+      lines(x, y, lwd = 4)
+      
+      if (input$lb_linear == TRUE) {
+        # small trick for educational purposes
+        if (all(input$lb_value1 == 0, input$lb_value2 == 0, input$lb_value3 == 0, input$lb_value4 == 0)) {
+          abline(h = 0, col = "red", lwd = 2)
+        } else abline(a = cf_i[1], b = cf_i[2], col = "red", lwd = 2)
+      }
+    } else if (input$lb_sd_data_plot == FALSE) {
+      plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_lb(), ylab = "outcome y", lwd = 4)
+      
+      if (input$lb_linear == TRUE) abline(a = cf[1], b = cf[2], col = "red", lwd = 2)
+    }
     abline(v = quantile(x, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
   })
   
@@ -544,7 +610,7 @@ server <- function(input, output) {
   
   # ** ns ----
   out_x_ns <- reactive({
-    switch(input$ns_x, 
+    switch(as.numeric(input$ns_x), 
            data[,1],
            data[,2],
            data[,3],
@@ -559,35 +625,41 @@ server <- function(input, output) {
   })
   
   out_xname_ns <- reactive({
-    switch(input$ns_x, 
+    switch(as.numeric(input$ns_x), 
            "weight (kg)", 
            "bmi (kg/m**2)", 
-           "waist circumference (cm)",
-           "triglyceride (mmol/L)",
            "triglyceride (mmol/L)",
            "HDL cholesterol (mmol/L)",
-           "HDL cholesterol (mmol/L)",
-           "systolic blood pressure (mm Hg)",
            "systolic blood pressure (mm Hg)",
            "diastolic blood pressure (mm Hg)",
+           "waist circumference (cm)",
+           "triglyceride (mmol/L)",
+           "HDL cholesterol (mmol/L)",
+           "systolic blood pressure (mm Hg)",
+           "age")
+  })
+  
+  out_xname_code_ns <- reactive({
+    switch(as.numeric(input$ns_x), 
+           "weight", 
+           "bmi", 
+           "triglyceride",
+           "HDL_cholesterol",
+           "systolic_blood_pressure",
+           "diastolic_blood_pressure",
+           "waist_circumference",
+           "triglyceride",
+           "HDL_cholesterol",
+           "systolic_blood_pressure",
            "age")
   })
   
   
   out_xgender_ns <- reactive({
-    switch(input$ns_x, 
-           "women", 
-           "men", 
-           "women",
-           "men",
-           "women",
-           "men",
-           "women",
-           "men",
-           "women",
-           "men",
-           "women")
+    switch(as.numeric(input$fp_x), 
+           "men", "men", "men", "men", "men", "men", "women", "women", "women", "women", "women")
   })
+  
   
   
   
@@ -616,13 +688,26 @@ server <- function(input, output) {
     x <- sort(out_x_ns())
     natspl <- ns(x,  df = 3)
     y <- natspl %*% c(input$ns_value1, input$ns_value2, input$ns_value3)
+    cf <- lm(y ~ x)$coefficients
     
     y_i <- y + rnorm(length(y), 0, input$ns_sd_data)
+    cf_i <- lm(y_i ~ x)$coefficients
     
-    if(input$ns_sd_data_plot == TRUE) {
+    if (input$ns_sd_data_plot == TRUE) {
       plot(x, y_i, cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y")
-      lines(x, y)
-    } else plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y")
+      lines(x, y, lwd = 4)
+      
+      if (input$ns_linear == TRUE)         
+        # small trick for educational purposes
+        if (all(input$ns_value1 == 0, input$ns_value2 == 0, input$ns_value3 == 0)) {
+          abline(h = 0, col = "red", lwd = 2)
+        } else abline(a = cf_i[1], b = cf_i[2], col = "red", lwd = 2)
+
+    } else if (input$ns_sd_data_plot == FALSE) {
+      plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y", lwd = 4)
+      
+      if (input$ns_linear == TRUE) abline(a = cf[1], b = cf[2], col = "red", lwd = 2)
+    }
     abline(v=quantile(x, c(0.25, 0.5, 0.75)), lty=3, col="darkgray")
   })
 }

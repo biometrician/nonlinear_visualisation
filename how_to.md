@@ -67,17 +67,16 @@ nhanes_BP2 <- rbind(nhanes_m2, nhanes_f2)
 
 data <- data.frame(cbind(weight_kg_m = nhanes_m2$weight_kg, 
                          bmi_m       = nhanes_m2$bmi, 
-                         waist_f     = nhanes_f2$waist,
                          triglyc_m   = nhanes_m2$triglyc,
-                         triglyc_f   = nhanes_f2$triglyc,
                          HDLchol_m   = nhanes_m2$HDLchol,
-                         HDLchol_f   = nhanes_f2$HDLchol,
                          BPsys_m     = nhanes_m2$BPsys,
-                         BPsys_f     = nhanes_f2$BPsys,
                          BPdia_m     = nhanes_m2$BPdia,
+                         waist_f     = nhanes_f2$waist,
+                         triglyc_f   = nhanes_f2$triglyc,
+                         HDLchol_f   = nhanes_f2$HDLchol,
+                         BPsys_f     = nhanes_f2$BPsys,
                          age_f       = nhanes_f2$age))
 saveRDS(data, "./data/data.rds")
 
 explanation_data <- nhanes_BP[,c("ID", "age", "bmi")]
 saveRDS(explanation_data, "./data/explanation_data.rds")
-`
