@@ -511,8 +511,8 @@ server <- function(input, output) {
                 fp, 
                 type = "l", 
                 xlab=out_xname_fp(), ylab = "outcome y", 
-                cex.axis = 1.2, cex.lab = 1.2, las = 1, lwd = 4)
-      
+                cex.axis = 1.2, cex.lab = 1.2, las = 1, lwd = 3)
+
       if (input$fp_linear == TRUE) {
         abline(reg = lm(fp ~ x_org), col = "red", lwd = 2)
       }
@@ -589,7 +589,8 @@ server <- function(input, output) {
     
     if (input$lb_sd_data_plot == TRUE) {
       plot(x, y_i, cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_lb(), ylab = "outcome y")
-      lines(x, y, lwd = 4)
+
+      lines(x, y, lwd = 3)
       
       if (input$lb_linear == TRUE) {
         # small trick for educational purposes
@@ -598,8 +599,8 @@ server <- function(input, output) {
         } else abline(a = cf_i[1], b = cf_i[2], col = "red", lwd = 2)
       }
     } else if (input$lb_sd_data_plot == FALSE) {
-      plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_lb(), ylab = "outcome y", lwd = 4)
-      
+      plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_lb(), ylab = "outcome y", lwd = 3)
+
       if (input$lb_linear == TRUE) abline(a = cf[1], b = cf[2], col = "red", lwd = 2)
     }
     abline(v = quantile(x, c(0.25, 0.5, 0.75)), lty = 3, col = "darkgray")
@@ -695,7 +696,8 @@ server <- function(input, output) {
     
     if (input$ns_sd_data_plot == TRUE) {
       plot(x, y_i, cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y")
-      lines(x, y, lwd = 4)
+
+      lines(x, y, lwd = 3)
       
       if (input$ns_linear == TRUE)         
         # small trick for educational purposes
@@ -704,7 +706,7 @@ server <- function(input, output) {
         } else abline(a = cf_i[1], b = cf_i[2], col = "red", lwd = 2)
 
     } else if (input$ns_sd_data_plot == FALSE) {
-      plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y", lwd = 4)
+      plot(x, y, type = "l", cex.axis = 1.2, cex.lab = 1.2, las = 1, xlab = out_xname_ns(), ylab = "outcome y", lwd = 3)
       
       if (input$ns_linear == TRUE) abline(a = cf[1], b = cf[2], col = "red", lwd = 2)
     }
