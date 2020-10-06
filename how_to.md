@@ -35,7 +35,22 @@ date: '2020-08-11'
       <h4 class="author">Daniela Dunkler</h4>
       </div>
 
+
+* Prepare the about.html following these steps:
+  + knit to HTML
+  
+  + comment out or delete "!DOCTYPE html"
+  
+  + adapt the complete head according to the last version
+  + delete
+      <div class="fluid-row" id="header">
+      <h1 class="title toc-ignore">Visualisation of non-linear modeling</h1>
+      <h4 class="author">Daniela Dunkler</h4>
+      </div>
+
+
 * run the app
+
 
 * upload to shinyapps.io via clicking on republish
   + upload the following files
