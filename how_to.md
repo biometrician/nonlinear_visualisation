@@ -8,9 +8,9 @@ date: '2020-08-11'
 * Prepare the explanation.html following these steps:
   + knit to HTML
   
-  + comment out or delete "!DOCTYPE html"
+  + delete "!DOCTYPE html"
   
-  + delete the complete head and add the following text
+  + delete the complete head (from <head> to </head>) and add the following text instead:
       <head>
       
       <meta charset="utf-8" />
@@ -29,20 +29,7 @@ date: '2020-08-11'
       
       </head>
   
-  + delete
-      <div class="fluid-row" id="header">
-      <h1 class="title toc-ignore">Visualisation of non-linear modeling</h1>
-      <h4 class="author">Daniela Dunkler</h4>
-      </div>
-
-
-* Prepare the about.html following these steps:
-  + knit to HTML
-  
-  + comment out or delete "!DOCTYPE html"
-  
-  + adapt the complete head according to the last version
-  + delete
+  + then also delete these lines below the head:
       <div class="fluid-row" id="header">
       <h1 class="title toc-ignore">Visualisation of non-linear modeling</h1>
       <h4 class="author">Daniela Dunkler</h4>
@@ -55,7 +42,7 @@ date: '2020-08-11'
 * upload to shinyapps.io via clicking on republish
   + upload the following files
     - app.R
-    - about.html
+    - about.md
     - explanation.html
     - data/data.rds
     - www/stratos_logo.png
@@ -64,13 +51,14 @@ date: '2020-08-11'
  
 **How to reproduce the data used in the app?**
 
-* data.RDS, the 11 variables used in the application: The orginal file to reporduce the data can be found in /_materials/20200708_nhanes_data.R. The nhanes_BP data from Georg can be found in the same folder /_materials/nhanes_BP.Rdata. (This folder is not on github.)
+* "data.RDS" includes the 11 variables used in the application. The orginal file to reproduce the data can be found on cloudius at "...\CLOUDIUS\DD_2020_nonlinear_modeling\_shiny\_materials\20200708_nhanes_data.R". The "nhanes_BP.RData" from Georg can be found on cloudius at "...\CLOUDIUS\DD_2020_nonlinear_modeling\_shiny\_materials\nhanes_BP.Rdata", as well. 
 
-* explanation_data.RDS, the data used for the explanation panel (explanation.md)
+
+* "explanation_data.RDS"", the data used for the explanation panel (explanation.Rmd)
+
+Here is the R code:
  
-* Here is the R code:
- 
-`load(file="./_materials/nhanes_BP.Rdata")
+load(file="./_materials/nhanes_BP.Rdata")
  
 nhanes_m <- subset(nhanes_BP, gender == "male")
 nhanes_f <- subset(nhanes_BP, gender == "female")

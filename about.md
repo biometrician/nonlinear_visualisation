@@ -31,12 +31,12 @@ If you are interested in **modelling of non-linear effects**, we refer to our se
 <br>
                
 ## Data used in this app
-The data used to visualise non-linear modelling stem from the [National Health and Nutrition Health Survey (NHANES)](<https://www.cdc.gov/nchs/nhanes/index.htm>) from the waves 2007-2008 and 2009-2010. Variables in this app include various medical measurements like weight (in kg), waist circumference (in cm), triglyceride ( in mmol/L), high-density lipoprotein (HDL) cholesterol ( in mmol/L), systolic blood pressure (in mm Hg), diastolic blood pressure (in mm Hg), or age. For each variable either one thousand men or one thousand women were randomly selected.
+The data used to visualise non-linear modelling stem from the [National Health and Nutrition Health Survey (NHANES)](<https://www.cdc.gov/nchs/nhanes/index.htm>) from the waves 2007-2008 and 2009-2010. Variables in this app include various medical measurements like weight (in kg), waist circumference (in cm), triglyceride ( in mmol/L), high-density lipoprotein (HDL) cholesterol (in mmol/L), systolic blood pressure (in mm Hg), diastolic blood pressure (in mm Hg), or age. For each variable either one thousand men or one thousand women were randomly selected.
 
 <br>
 
 ## Comments, suggestions
-Comments, questions, or suggestions for improvement are welcome. Please use the accompanying [github repository](<https://github.com/biometrician/nonlinear_modeling>) for this purpose.
+Comments, questions, or suggestions for improvement are welcome. Please use the accompanying [github repository](<https://github.com/biometrician/nonlinear_visualisation>) for this purpose.
 
 <br>
 

@@ -55,7 +55,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                        tabPanel("about",
                                 
                                 mainPanel(
-                                  includeHTML("about.html")
+                                  includeMarkdown("about.md")
                                 )
                        ),                                                        # end tabPanel explanation
 
